@@ -17,7 +17,7 @@ export class Server {
     return Server._instance;
   }
 
-  async start(port: number): Promise<void> {
-    await this.app.listen({ port });
+  async start(port: number, host: string): Promise<void> {
+    await this.app.listen({ port, host });
   }
 }

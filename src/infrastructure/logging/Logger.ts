@@ -1,10 +1,10 @@
 import pino from 'pino';
-
+import { Environment } from '../../config/environment/Environment.js';
 import { createLoggerConfig } from './LoggerConfig.js';
 
-const environment = process.env.NODE_ENV ?? 'development';
-const logLevel = process.env.LOG_LEVEL ?? 'info';
-
-const loggerConfig = createLoggerConfig(environment, logLevel);
+const loggerConfig = createLoggerConfig(
+  Environment.NODE_ENV,
+  Environment.LOG_LEVEL,
+);
 
 export const logger = pino(loggerConfig);
