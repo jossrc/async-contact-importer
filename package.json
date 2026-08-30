@@ -1,0 +1,27 @@
+{
+  "name": "async-contact-importer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/api.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/api.js",
+    "dev": "tsx watch src/api.ts",
+    "typecheck": "tsc --noEmit",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "devDependencies": {
+    "@types/node": "^26.4.0",
+    "prettier": "3.9.6",
+    "tsx": "^4.23.12",
+    "typescript": "^7.0.2"
+  },
+  "dependencies": {
+    "fastify": "^5.12.1"
+  }
+}
