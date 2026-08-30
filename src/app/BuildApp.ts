@@ -1,9 +1,12 @@
-import fastify, { type FastifyInstance } from 'fastify';
+import fastify, { type FastifyBaseLogger, type FastifyInstance } from 'fastify';
 import { registerModules } from './RegisterModules.js';
+import { logger } from '../infrastructure/logging/Logger.js';
+import { randomUUID } from 'node:crypto';
 
 export function buildApp(): FastifyInstance {
   const app = fastify({
-    logger: false,
+    loggerInstance: logger as FastifyBaseLogger,
+    genReqId: () => randomUUID(),
   });
 
   registerModules(app);
