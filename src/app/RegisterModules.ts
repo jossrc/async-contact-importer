@@ -1,10 +1,8 @@
 import type { FastifyInstance } from 'fastify';
 import { healthModule } from '../modules/Health/HealthModule.js';
 
-export async function registerModules(
-  app: FastifyInstance,
-): Promise<void> {
-  await app.register(
+export function registerModules(app: FastifyInstance): void {
+  app.register(
     async (api) => {
       await api.register(healthModule);
     },
