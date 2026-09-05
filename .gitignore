@@ -788,3 +788,5 @@ docker/postgres-data/
 
 ### VisualStudio Patch ###
 # Additional files built by Visual Studio
+
+.vitest/
