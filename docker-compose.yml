@@ -1,0 +1,45 @@
+services:
+  postgres:
+    image: postgres:18.4
+    container_name: async_contact_importer_postgres
+    restart: unless-stopped
+    ports:
+      - '5438:5432'
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: postgre
+      POSTGRES_DB: async_contact_importer
+    volumes:
+      - ./docker/postgres-data:/var/lib/postgresql
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U admin -d async_contact_importer']
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    networks:
+      - async_contact_importer_net
+
+  async_contact_importer_api:
+    build: .
+    container_name: async_contact_importer_api
+    restart: unless-stopped
+    ports:
+      - '3000:3000'
+    environment:
+      NODE_ENV: production
+      HOST: 0.0.0.0
+      PORT: 3000
+      LOG_LEVEL: info
+      DATABASE_URL: postgresql://admin:postgre@postgres:5432/async_contact_importer
+      DATABASE_POOL_MAX: ${DATABASE_POOL_MAX:-10}
+      DATABASE_CONNECTION_TIMEOUT_MS: ${DATABASE_CONNECTION_TIMEOUT_MS:-5000}
+      DATABASE_IDLE_TIMEOUT_MS: ${DATABASE_IDLE_TIMEOUT_MS:-30000}
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - async_contact_importer_net
+
+networks:
+  async_contact_importer_net:
+    driver: bridge

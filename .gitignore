@@ -783,5 +783,8 @@ FodyWeavers.xsd
 # JetBrains Rider
 *.sln.iml
 
+# PostgreSQL local volume (docker compose)
+docker/postgres-data/
+
 ### VisualStudio Patch ###
 # Additional files built by Visual Studio
